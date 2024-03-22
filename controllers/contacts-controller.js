@@ -33,14 +33,16 @@ const add = async (req, res, next) => {
 	}
 }
 
+
+
 const deleteById = async (req, res, next) => {
 	try {
 		const { contactId } = req.params;
-		const result = await Contact.findByIdAndDelete(contactId);
+		const result = await Contact.removeContact(contactId);
 		if (!result) {
 			throw HttpError(404, `Not found`);
 		}
-		res.json({ message: "contact deleted" });
+		res.status(200).json(result);
 	} catch (error) {
 		next(error);
 	}
